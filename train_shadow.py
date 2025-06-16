@@ -110,8 +110,8 @@ for shadow_number, shadow_loader in enumerate(tqdm(list_train_loader)):
     run_name = f"{shadow_model.__class__.__name__}_shadow_{shadow_number}"
 
     wandb.init(
-        entity="cysec",
-        project="membership_inference_attack",
+        entity="kizaru-university-leipzig",
+        project="mia-shadow",
         group=f"{shadow_model.__class__.__name__}_shadow",
         name=run_name,
     )

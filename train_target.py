@@ -80,8 +80,8 @@ subset_tgt_eval_loader = DataLoader(
 
 run_name = f"{model_architecture}_target"
 wandb.init(
-    entity="cysec",
-    project="membership_inference_attack",
+    entity="kizaru-university-leipzig",
+    project="mia-shadow",
     group=f"{target_model.__class__.__name__}_target",
     name=run_name,
 )
