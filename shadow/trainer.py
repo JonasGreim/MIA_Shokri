@@ -1,7 +1,7 @@
 import os
 import glob
 import wandb
-from utils.metric import AverageMeter, Summary, ProgressMeter, accuracy, lira_metrics
+from MIA.utils.metric import AverageMeter, Summary, ProgressMeter, accuracy, lira_metrics
 from tqdm import tqdm
 import time
 import torch
@@ -88,16 +88,16 @@ def validate(val_loader, model, criterion, device):
 
 
 def train(
-    CFG,
-    model,
-    train_loader,
-    valid_loader,
-    optimizer,
-    save_path,
-    shadow_number,
-    scheduler=None,
-    criterion=None,
-    device=torch.device("cuda:0" if torch.cuda.is_available() else "cpu"),
+        CFG,
+        model,
+        train_loader,
+        valid_loader,
+        optimizer,
+        save_path,
+        shadow_number,
+        scheduler=None,
+        criterion=None,
+        device=torch.device("cuda:0" if torch.cuda.is_available() else "cpu"),
 ):
     early_stop_acc1 = EarlyStopPatience(patience=CFG.early_stop_patience)
     best_valid_acc = 0
@@ -242,4 +242,3 @@ def train(
         )
     )
     return model
-
