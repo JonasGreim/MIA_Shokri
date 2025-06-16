@@ -1,4 +1,4 @@
-use python 3.9
+works with python 3.10
 
 change wandb login credential to your own:
 in train_shadow and train_attack
