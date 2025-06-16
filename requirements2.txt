@@ -1,0 +1,14 @@
+catboost==1.0.6
+easydict==1.9
+lightgbm==3.3.2
+pandas==1.4.1
+PyYAML==6.0
+scikit-learn==1.6.1
+torch==2.2.1
+torchvision==0.17.1
+tqdm==4.64.0
+wandb==0.19.5
+xgboost==1.6.1
+matplotlib==3.5.2
+seaborn==0.11.2
+numpy==1.26.4
