@@ -1,7 +1,7 @@
 import os
 import glob
 import wandb
-from MIA.utils.metric import AverageMeter, Summary, ProgressMeter, accuracy, lira_metrics
+from utils.metric import AverageMeter, Summary, ProgressMeter, accuracy, lira_metrics
 from tqdm import tqdm
 import time
 import torch
