@@ -194,6 +194,7 @@ def train(
                     os.remove(checkpoint)
 
                 print("New valid model for val accuracy! saving the model...")
+                os.makedirs(save_path, exist_ok=True)
                 torch.save(
                     model.state_dict(),
                     os.path.join(
@@ -209,6 +210,7 @@ def train(
                     os.remove(checkpoint)
 
                 print("New valid model for val accuracy! saving the model...")
+                os.makedirs(save_path, exist_ok=True)
                 torch.save(
                     model.state_dict(),
                     os.path.join(
