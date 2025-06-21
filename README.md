@@ -13,6 +13,16 @@ sudo apt install nvcc
 check gpu driver (nvidia-smi)
 
 
+Run python train_target.py (or use own target model)
+set target_model_path in config.yaml (nach target training, model lays in ./ckpt)
+
+Run python train_shadow.py
+set attack_dset_path (nach shadow training(changes with shadow model number), ./attack)
+
+Run python train_attack.py
+set attack_model_path (nach attack model training, ./attack)
+
+
 # MIA_ML
 
 ### Implementation of Shokri et al(2016) [Membership Inference Attacks Against Machine Learning Models](https://arxiv.org/pdf/1610.05820.pdf)
