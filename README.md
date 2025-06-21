@@ -6,6 +6,13 @@ in train_shadow and train_attack
 requirements changed, update wandb and numpy to 1.x version
 
 
+GPU usage: 
+pip uninstall torch torchvision torchaudio
+pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
+sudo apt install nvcc
+check gpu driver (nvidia-smi)
+
+
 # MIA_ML
 
 ### Implementation of Shokri et al(2016) [Membership Inference Attacks Against Machine Learning Models](https://arxiv.org/pdf/1610.05820.pdf)
