@@ -59,9 +59,8 @@ def make_member_nonmember(finetuned_model, trainloader, testloader, criterion, d
             # append to non_member_dset
             non_member_dset.append(top_p)
 
-    # change into numpy array type
-    member_dset, non_member_dset = np.array(member_dset), np.array(non_member_dset)
+    member_dset = np.concatenate([np.array(x) for x in member_dset], axis=0)
+    non_member_dset = np.concatenate([np.array(x) for x in non_member_dset], axis=0)
 
     # return as dataset row x number of accessible probabilities: (ex) 25000 x 5, 25000 x 5
-    return np.concatenate(member_dset, axis=0), np.concatenate(non_member_dset, axis=0)
-
+    return member_dset, non_member_dset
