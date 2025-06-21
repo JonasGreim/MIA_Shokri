@@ -94,7 +94,7 @@ train(
     subset_tgt_eval_loader,
     optimizer,
     CFG.save_path,
-    shadow_number=-1,
+    shadow_number=-1,  # -1 to mark training for target model
     criterion=criterion,
     scheduler=None,
 )
