@@ -1,21 +1,16 @@
 from shadow.trainer import train
-from shadow.make_data import make_member_nonmember
+from utils.get_model_class import get_model_class
 from utils.seed import seed_everything
 from utils.load_config import load_config
 import os
 import torch
 import torchvision
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.optim import Adam, AdamW
 from torch.utils.data import DataLoader, Subset
 import torchvision.transforms as transforms
-from tqdm import tqdm
 import pandas as pd
 import numpy as np
-import random
-from easydict import EasyDict
-import yaml
 import wandb
 import importlib
 
@@ -49,15 +44,13 @@ testloader = DataLoader(testset, batch_size=CFG.val_batch_size, shuffle=False, n
 # define dataset for attack model that shadow models will generate
 print("mapped classes to ids:", testset.class_to_idx)
 
-# Training multiple shadow models
-model_architecture = importlib.import_module("torchvision.models")
-model_class = getattr(model_architecture, CFG.model_architecture)
+model_class = get_model_class(CFG)
 criterion = nn.CrossEntropyLoss()
 
 # Train Target Model
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")  # Define Devices
-target_model = model_class(pretrained=CFG.bool_pretrained)
-target_model.fc = nn.Linear(in_features=target_model.fc.in_features, out_features=CFG.num_classes)
+target_model = model_class()
+print(target_model)
 target_model = target_model.to(device)
 optimizer = AdamW(target_model.parameters(), lr=CFG.learning_rate, weight_decay=CFG.weight_decay)
 
@@ -79,7 +72,7 @@ subset_tgt_eval_loader = DataLoader(
     subset_tgt_eval, batch_size=CFG.val_batch_size, shuffle=False, num_workers=2
 )
 
-run_name = f"{model_architecture}_target"
+run_name = f"{CFG.custom_model_architecture}_target"
 wandb.init(
     entity="kizaru-university-leipzig",
     project="mia-shadow",
