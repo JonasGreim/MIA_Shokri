@@ -1,19 +1,23 @@
 from shadow.trainer import train
 from shadow.make_data import make_member_nonmember
-from utils.get_model_class import get_model_class
 from utils.seed import seed_everything
 from utils.load_config import load_config
 import os
 import torch
 import torchvision
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.optim import Adam, AdamW
 from torch.utils.data import DataLoader, Subset
 import torchvision.transforms as transforms
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
+import random
+from easydict import EasyDict
+import yaml
 import wandb
+import importlib
 
 # load config
 CFG = load_config("CFG")
@@ -89,7 +93,8 @@ for _ in range(CFG.num_shadow_models):
 
 
 # Training multiple shadow models
-model_class = get_model_class(CFG)
+model_architecture = importlib.import_module("torchvision.models")
+model_class = getattr(model_architecture, CFG.model_architecture)
 criterion = nn.CrossEntropyLoss()
 
 # iterate through predefined shadow_loaders and validationloaders
@@ -98,8 +103,10 @@ for shadow_number, shadow_loader in enumerate(tqdm(list_train_loader)):
     testloader = list_test_loader[shadow_number]
 
     # define shadow model to finetune on the CIFAR train dataset
-    shadow_model = model_class()
-    print(shadow_model)
+    shadow_model = model_class(pretrained=CFG.bool_pretrained)
+    shadow_model.fc = nn.Linear(
+        in_features=shadow_model.fc.in_features, out_features=CFG.num_classes
+    )
     shadow_model = shadow_model.to(device)
 
     run_name = f"{shadow_model.__class__.__name__}_shadow_{shadow_number}"
