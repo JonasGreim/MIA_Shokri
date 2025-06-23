@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
+# Only for Cifar 10 dataset
 # CNN defined in the paper "Membership Inference Attacks Against Machine Learning Models"
 # Note: Paper uses Torch7; here we are using PyTorch
 # conv_filters (32,64 ), kernel_size and padding & pooling kernel size and stride are not descripted (only descripted as standard CNN)
