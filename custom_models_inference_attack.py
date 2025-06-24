@@ -15,6 +15,7 @@ import yaml
 from easydict import EasyDict
 from joblib import dump, load
 import importlib
+from sklearn.metrics import roc_auc_score
 
 # get metric and train, test support
 from sklearn.model_selection import train_test_split
@@ -104,7 +105,12 @@ y_pred = attack_model.predict(X_test)
 # get accuracy, precision, recall, f1-score
 precision, recall, f1_score, _ = precision_recall_fscore_support(y_true, y_pred, average="macro")
 accuracy = accuracy_score(y_true, y_pred)
-print("precision:", precision)
-print("recall:", recall)
-print("f1-score:", f1_score)
-print("accuracy:", accuracy)
+
+y_scores = attack_model.predict_proba(X_test)[:, 1]  # Predicted probabilities for the positive class
+auc = roc_auc_score(y_true, y_scores)
+
+print(f"precision:, {precision:.3f}")
+print(f"recall:, {recall:.3f}")
+print(f"f1-score:, {f1_score:.3f}")
+print(f"accuracy:, {accuracy:.3f}")
+print(f"AUC      : {auc:.3f}")
